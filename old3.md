@@ -7,6 +7,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Earthy Neutrals -->
+    <!-- Application Structure Plan: A home-page-first, section-based structure was chosen for a more guided user flow. The landing page acts as a hub, introducing the core philosophy and offering clear navigation to all major content areas (Diet, Grooming, etc.). Clicking a link now hides the home page and reveals a single, focused content section, mimicking a multi-page app within one HTML file. This prevents information overload and provides a clear path for the user. A "Back to Home" button on each content page offers a consistent way to return to the main hub. The top navigation bar is now always visible and allows direct jumps between sections, improving efficiency. New sections for a shopping list and household hazards were integrated to provide a more comprehensive resource. -->
+    <!-- Visualization & Content Choices: Report Info: 80/10/10 raw diet ratio -> Goal: Inform & Emphasize -> Viz/Method: Donut Chart -> Interaction: Static visualization with clear labels -> Justification: A donut chart provides an immediate, easy-to-understand visual breakdown of the most critical concept in the guide—the species-appropriate diet. It acts as a powerful visual anchor for the entire nutrition section. Report Info: DIY recipes for food, grooming, and cleaning -> Goal: Organize & Instruct -> Method: Styled HTML cards -> Interaction: Content toggles/accordions -> Justification: Hiding detailed recipes until clicked keeps the main layout clean and scannable, allowing users to focus on one recipe at a time without clutter. This supports the user task of finding a specific solution quickly. All diagrams and icons are rendered with Unicode characters or structured HTML/CSS to maintain the no-SVG constraint. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -16,7 +20,6 @@
         .nav-link {
             transition: color 0.3s ease, border-bottom-color 0.3s ease;
             border-bottom: 2px solid transparent;
-            white-space: nowrap; /* Prevents wrapping */
         }
         .nav-link.active {
             color: #8C6E4A;
@@ -70,7 +73,7 @@
             <div id="main-title" class="text-2xl font-bold text-gray-800 md:block">
                 🐾 The Holistic Ferret
             </div>
-            <div id="nav-sections" class="flex space-x-4 md:space-x-8 hidden overflow-x-auto">
+            <div id="nav-sections" class="flex space-x-4 md:space-x-8 hidden">
                 <button class="nav-link text-gray-600 font-semibold pb-1 active" data-target="home-content">Home</button>
                 <button class="nav-link text-gray-600 font-semibold pb-1" data-target="diet-content">Diet</button>
                 <button class="nav-link text-gray-600 font-semibold pb-1" data-target="grooming-content">Grooming</button>
@@ -475,6 +478,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Function to initialize the diet chart
             const initDietChart = () => {
                 const dietData = {
                     labels: ['Muscle Meat', 'Raw Edible Bone', 'Organ Meat'],
@@ -491,6 +495,7 @@
                         hoverOffset: 4
                     }]
                 };
+
                 const dietConfig = {
                     type: 'doughnut',
                     data: dietData,
@@ -526,23 +531,29 @@
                         cutout: '60%'
                     }
                 };
+                
+                // Get the canvas element and ensure it exists before creating the chart
                 const dietChartCtx = document.getElementById('dietChart');
                 if (dietChartCtx) {
                     new Chart(dietChartCtx, dietConfig);
                 }
             };
+
+
             const navButtons = document.querySelectorAll('.nav-link');
             const homeButtons = document.querySelectorAll('#home-content button[data-target]');
             const allButtons = [...navButtons, ...homeButtons];
             const contentSections = document.querySelectorAll('.content-section');
             const navSectionsDiv = document.getElementById('nav-sections');
             const mainTitle = document.getElementById('main-title');
+
             const showContent = (targetId) => {
                 contentSections.forEach(section => {
                     section.classList.add('hidden');
                 });
                 document.getElementById(targetId).classList.remove('hidden');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+
                 if (targetId === 'home-content') {
                     navSectionsDiv.classList.add('hidden');
                     if (mainTitle) mainTitle.classList.remove('hidden');
@@ -550,10 +561,13 @@
                     navSectionsDiv.classList.remove('hidden');
                     if (mainTitle) mainTitle.classList.add('hidden');
                 }
+
+                // Initialize the chart only when the diet-content section is shown
                 if (targetId === 'diet-content') {
                     initDietChart();
                 }
             };
+
             const setActiveLink = (targetId) => {
                 navButtons.forEach(btn => {
                     btn.classList.remove('active');
@@ -562,6 +576,7 @@
                     }
                 });
             };
+
             allButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     const targetId = button.dataset.target;
@@ -569,12 +584,15 @@
                     setActiveLink(targetId);
                 });
             });
+
             const recipeToggles = document.querySelectorAll('.recipe-toggle');
             recipeToggles.forEach(toggle => {
                 toggle.addEventListener('click', () => {
                     const content = toggle.nextElementSibling;
                     const icon = toggle.querySelector('span');
+                    
                     const isCollapsed = content.style.maxHeight === '0px' || content.style.maxHeight === '';
+
                     if (isCollapsed) {
                         content.style.maxHeight = content.scrollHeight + 'px';
                         content.style.opacity = '1';
@@ -586,6 +604,8 @@
                     }
                 });
             });
+            
+            // Set initial state
             showContent('home-content');
             setActiveLink('home-content');
         });
