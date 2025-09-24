@@ -13,15 +13,6 @@
             background-color: #FDFBF8;
             color: #4A4A4A;
         }
-        .nav-link {
-            transition: color 0.3s ease, border-bottom-color 0.3s ease;
-            border-bottom: 2px solid transparent;
-            white-space: nowrap; /* Prevents wrapping */
-        }
-        .nav-link.active {
-            color: #8C6E4A;
-            border-bottom-color: #8C6E4A;
-        }
         .section-title {
             color: #8C6E4A;
         }
@@ -61,70 +52,136 @@
             opacity: 0;
             transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
         }
+        .hamburger-menu {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 100;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .hamburger-icon div {
+            width: 25px;
+            height: 3px;
+            background-color: #A47E54;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+        .hamburger-menu.active .bar-1 {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        .hamburger-menu.active .bar-2 {
+            opacity: 0;
+        }
+        .hamburger-menu.active .bar-3 {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+        .nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(253, 251, 248, 0.95);
+            backdrop-filter: blur(5px);
+            z-index: 90;
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+            padding: 8rem 2rem;
+        }
+        .nav-overlay.active {
+            transform: translateX(0);
+        }
+        .nav-overlay a {
+            transition: color 0.3s ease;
+        }
+        .nav-overlay a:hover {
+            color: #8C6E4A;
+        }
+        .home-grid-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .home-grid-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
     </style>
 </head>
 <body class="antialiased">
 
-    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm border-b border-gray-200">
-        <nav class="container mx-auto px-6 py-4 flex justify-center md:justify-between items-center">
-            <div id="main-title" class="text-2xl font-bold text-gray-800 md:block">
-                🐾 The Holistic Ferret
-            </div>
-            <div id="nav-sections" class="flex space-x-4 md:space-x-8 hidden overflow-x-auto">
-                <button class="nav-link text-gray-600 font-semibold pb-1 active" data-target="home-content">Home</button>
-                <button class="nav-link text-gray-600 font-semibold pb-1" data-target="diet-content">Diet</button>
-                <button class="nav-link text-gray-600 font-semibold pb-1" data-target="grooming-content">Grooming</button>
-                <button class="nav-link text-gray-600 font-semibold pb-1" data-target="house-and-play-content">House & Play</button>
-                <button class="nav-link text-gray-600 font-semibold pb-1" data-target="facts-content">Ferret Facts</button>
-                <button class="nav-link text-gray-600 font-semibold pb-1" data-target="bonding-content">Bonding</button>
-                <button class="nav-link text-gray-600 font-semibold pb-1" data-target="health-content">Health</button>
-                <button class="nav-link text-gray-600 font-semibold pb-1" data-target="shopping-content">Shopping List</button>
-            </div>
+    <!-- Hamburger Menu Icon -->
+    <div id="hamburger-menu" class="hamburger-menu">
+        <div class="hamburger-icon">
+            <div class="bar-1"></div>
+            <div class="bar-2"></div>
+            <div class="bar-3"></div>
+        </div>
+    </div>
+
+    <!-- Navigation Overlay -->
+    <div id="nav-overlay" class="nav-overlay flex flex-col justify-center items-center p-8">
+        <h2 class="text-4xl font-bold section-title mb-12">Guide Sections</h2>
+        <nav class="flex flex-col space-y-6 text-center text-xl font-semibold">
+            <a href="#" data-target="home-content">Home</a>
+            <a href="#" data-target="diet-content">Diet & Nutrition</a>
+            <a href="#" data-target="grooming-content">Grooming & Odor</a>
+            <a href="#" data-target="health-content">Health & Vets</a>
+            <a href="#" data-target="habitat-content">Habitat & Care</a>
+            <a href="#" data-target="training-content">Training & Behavior</a>
+            <a href="#" data-target="holistic-content">Mindful Living</a>
+            <a href="#" data-target="shopping-content">Shopping List</a>
+            <a href="#" data-target="travel-content">Travel & Emergencies</a>
+            <a href="#" data-target="facts-content">Ferret Facts</a>
         </nav>
-    </header>
+    </div>
 
     <main class="container mx-auto px-6 py-12">
         <div id="home-content" class="content-section">
-            <section class="text-center mb-12">
-                <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">A Natural Guide to Ferret Wellness</h1>
-                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+            <header class="text-center mb-12">
+                <a href="#" class="nav-link text-3xl font-bold text-gray-800" data-target="home-content">
+                    🐾 The Holistic Ferret
+                </a>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto mt-4">
                     Welcome to your complete guide for raising a happy, healthy ferret the natural way. This guide focuses on a holistic approach, emphasizing a species-appropriate diet, gentle grooming, and a stimulating, chemical-free environment.
                 </p>
-            </section>
+            </header>
             <section class="mb-20">
-                <h2 class="text-3xl font-bold section-title mb-8 text-center">Explore the Guide</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <button data-target="diet-content" class="card p-6 rounded-lg text-left hover:shadow-lg transition-shadow">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">🥩 Diet & Nutrition</h3>
-                        <p class="text-gray-600">The most important factor in your ferret's health: the 80/10/10 raw diet, transitioning methods, and DIY recipes.</p>
+                <h2 class="text-3xl font-bold section-title mb-8 text-center">Your Natural Ferret Guide</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <button data-target="diet-content" class="card p-4 rounded-lg text-left hover:shadow-lg transition-shadow">
+                        <h3 class="text-xl font-bold text-gray-800 mb-1">🥩 Diet & Nutrition</h3>
+                        <p class="text-sm text-gray-600">The most important factor in your ferret's health: the 80/10/10 raw diet, transitioning methods, and recipes.</p>
                     </button>
-                    <button data-target="grooming-content" class="card p-6 rounded-lg text-left hover:shadow-lg transition-shadow">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">🛁 Grooming & Odor</h3>
-                        <p class="text-gray-600">Learn why less is more with bathing, how to care for nails and ears, and why diet is key to odor control.</p>
+                    <button data-target="grooming-content" class="card p-4 rounded-lg text-left hover:shadow-lg transition-shadow">
+                        <h3 class="text-xl font-bold text-gray-800 mb-1">🛁 Grooming & Odor</h3>
+                        <p class="text-sm text-gray-600">Why less is more, how to care for nails and ears, and why diet is key to odor control.</p>
                     </button>
-                    <button data-target="house-and-play-content" class="card p-6 rounded-lg text-left hover:shadow-lg transition-shadow">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">🏡 House & Play</h3>
-                        <p class="text-gray-600">Discover how to create a safe, clean, and enriching environment with natural cleaners and fun DIY toys.</p>
+                    <button data-target="health-content" class="card p-4 rounded-lg text-left hover:shadow-lg transition-shadow">
+                        <h3 class="text-xl font-bold text-gray-800 mb-1">❤️ Health & Vets</h3>
+                        <p class="text-sm text-gray-600">Preventative care, recognizing illness, and finding a qualified ferret-competent holistic vet.</p>
                     </button>
-                    <button data-target="facts-content" class="card p-6 rounded-lg text-left hover:shadow-lg transition-shadow">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">💡 Ferret Facts</h3>
-                        <p class="text-gray-600">Essential knowledge about ferret behavior, sleep habits, sounds, and how to build a strong bond.</p>
+                    <button data-target="habitat-content" class="card p-4 rounded-lg text-left hover:shadow-lg transition-shadow">
+                        <h3 class="text-xl font-bold text-gray-800 mb-1">🏡 Habitat & Care</h3>
+                        <p class="text-sm text-gray-600">How to create a safe and enriching home with ferret-proofing, cage setups, and natural cleaning solutions.</p>
                     </button>
-                    <button data-target="bonding-content" class="card p-6 rounded-lg text-left hover:shadow-lg transition-shadow">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">🤝 Building a Bond</h3>
-                        <p class="text-gray-600">Learn how to build trust, reduce nipping, and form a deep connection with your ferret through play and positive reinforcement.</p>
+                     <button data-target="training-content" class="card p-4 rounded-lg text-left hover:shadow-lg transition-shadow">
+                        <h3 class="text-xl font-bold text-gray-800 mb-1">🤝 Training & Behavior</h3>
+                        <p class="text-sm text-gray-600">Building trust, correcting behavior, and understanding their unique language and social needs.</p>
                     </button>
-                    <button data-target="health-content" class="card p-6 rounded-lg text-left hover:shadow-lg transition-shadow">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">❤️ Health & Vets</h3>
-                        <p class="text-gray-600">Understand the role of preventative care and why a relationship with an exotics vet is vital for your ferret's long-term health.</p>
-                    </button>
-                     <button data-target="shopping-content" class="card p-6 rounded-lg text-left hover:shadow-lg transition-shadow">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">🛒 Shopping List</h3>
-                        <p class="text-gray-600">A curated list of all the essential items you need for a happy and healthy ferret home.</p>
+                    <button data-target="holistic-content" class="card p-4 rounded-lg text-left hover:shadow-lg transition-shadow">
+                        <h3 class="text-xl font-bold text-gray-800 mb-1">🧘 Mindful Living</h3>
+                        <p class="text-sm text-gray-600">Beyond the basics: daily routines, soundscapes, herbal calmers, and community engagement.</p>
                     </button>
                 </div>
             </section>
-
             <section class="mb-20">
                 <h2 class="text-3xl font-bold section-title mb-8 text-center">A Companion for the Curious</h2>
                 <div class="grid md:grid-cols-2 gap-12 items-center">
@@ -208,6 +265,16 @@
                         </ol>
                     </div>
                 </div>
+                <div class="card p-8 rounded-lg mt-12">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Sourcing and Hydration</h3>
+                    <ul class="list-disc list-inside space-y-4 text-gray-700">
+                        <li><strong>Raw Meat Sourcing:</strong> For the highest quality, seek out grass-fed, hormone-free meats from a local abattoir or a trusted raw-pet food co-op. This ensures ethical sourcing and a high-nutrient profile.</li>
+                        <li><strong>Safe Treat Short-list:</strong> Offer freeze-dried meat, day-old chicks, or a raw egg once a week. These are species-appropriate and a great form of enrichment. Avoid all sugar and carbohydrate-based treats.</li>
+                        <li><strong>Fresh Water Delivery:</strong> Use a heavy ceramic bowl to prevent spills and ensure your ferret always has access to clean, fresh water. Refill it twice daily with spring or filtered water. </li>
+                        <li><strong>Natural Chew Enrichment:</strong> Offer items like dehydrated rabbit ears with fur, bird feet, or dehydrated tendons. These provide excellent dental cleaning and a satisfying chew.</li>
+                        <li><strong>Dental Care Diet:</strong> The raw meaty bones in the 80/10/10 diet are the primary source of dental care. Chewing on them naturally scrapes plaque and tartar from their teeth, debunking the myth that hard kibble "cleans" their teeth.</li>
+                    </ul>
+                </div>
             </section>
         </div>
 
@@ -245,7 +312,7 @@
                             <p class="text-sm text-gray-700">Mix equal parts organic apple cider vinegar and distilled water. Dampen a cotton ball (do not soak) and gently wipe the outer ear folds.</p>
                         </div>
                     </div>
-                    <div class="card p-6 rounded-lg">
+                     <div class="card p-6 rounded-lg">
                         <h3 class="text-xl font-bold text-gray-800 mb-2">Odor: Separating Fact from Fiction</h3>
                         <p class="text-gray-600 mb-4">
                             Ferrets have two main sources of odor: their natural musk from scent glands and the smell of a dirty environment.
@@ -257,69 +324,224 @@
                         </ul>
                     </div>
                     <div class="card p-6 rounded-lg">
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Brushing & Dental Care</h3>
-                        <p class="text-gray-600">Brushing their fur, especially during shedding seasons, helps prevent hairballs that can cause dangerous blockages. Use a soft brush and make it part of your routine.</p>
-                        <p class="text-gray-600 mt-4">Dental hygiene is critical. A raw diet with edible bones provides the best natural cleaning. However, you can also brush their teeth with a ferret-safe toothpaste and a small toothbrush or cotton swab. Aim for weekly brushing to prevent dental disease.</p>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Coat Blow & Seasonal Weight</h3>
+                        <p class="text-gray-600 mb-4">Ferrets go through a significant "coat blow" twice a year, where they shed their winter or summer fur. During this time, brushing is crucial to prevent hairballs. You'll also notice a dramatic change in weight—a plump, fluffy ferret in winter will become a sleek, skinny ferret in summer. This is normal, and you can adjust their food quantity to match their needs.</p>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Parasite Watch</h3>
+                        <p class="text-gray-600">Check for fleas visually with a flea comb. For a natural approach to keeping your home clear, you can sprinkle food-grade diatomaceous earth on carpets and bedding. Always quarantine any new rescues from other pets for at least two weeks.</p>
                     </div>
                 </div>
             </section>
         </div>
 
-        <div id="house-and-play-content" class="content-section hidden">
-            <section class="mb-20">
-                <h2 class="text-3xl font-bold section-title mb-8 text-center">🏡 House, Cleaning & Enrichment</h2>
+        <div id="health-content" class="content-section hidden">
+            <section>
+                <h2 class="text-3xl font-bold section-title mb-8 text-center">❤️ Holistic Health & Vets</h2>
                 <p class="text-lg text-gray-600 max-w-3xl mx-auto text-center mb-12">
-                    A clean, stimulating environment is crucial for a ferret's physical and mental health. Use natural, ferret-safe products to avoid exposing them to harsh chemicals.
+                    A natural lifestyle is the best form of preventative medicine. It is not a replacement for professional medical care, but a way to build a foundation of health that makes vet visits for illness less likely.
+                </p>
+                 <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-6 rounded-r-lg card mb-12">
+                    <h3 class="text-xl font-bold mb-2">Vets are Vital Partners</h3>
+                    <p>
+                    An annual check-up with an experienced exotics vet is crucial for monitoring health, even for a seemingly healthy ferret. Accidents and sudden illnesses can happen. This guide empowers you to provide the best daily care, but a vet is an irreplaceable partner in your ferret's lifelong health journey. Ferrets are experts at hiding illness, so professional check-ups are key to early detection.
+                    </p>
+                </div>
+                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Recognizing Pain or Illness</h3>
+                        <p class="text-gray-600">Be vigilant for subtle changes in behavior. Key signs of illness include lethargy, pawing at the mouth, hind-leg wobble, green mucus in stool, and sudden weight loss. Early detection is critical.</p>
+                    </div>
+                     <div class="card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Finding a Competent Vet</h3>
+                        <p class="text-gray-600">A ferret-competent holistic vet is an invaluable resource. Before you need one, find a vet and interview them. Ask if they are "herb-friendly," which indicates a willingness to work with natural care, and discuss their anaesthesia protocols as ferrets are sensitive.</p>
+                    </div>
+                    <div class="card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Annual Wellness Exam</h3>
+                        <p class="text-gray-600">An annual exam is more than a shot. It should include a full physical, a dental check, a weight chart to monitor seasonal changes, and a fecal check for parasites. This routine is the best preventative care.</p>
+                    </div>
+                     <div class="card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Vaccine Decisions</h3>
+                        <p class="text-gray-600">Vaccine decisions should be made in consultation with your vet. A single-page pro/con list can help. In general, only consider the distemper vaccine if there is a known local outbreak, and never use a combination shot (which can overwhelm their small bodies).</p>
+                    </div>
+                     <div class="card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Senior Ferret Supports</h3>
+                        <p class="text-gray-600">As your ferret ages, their needs change. Provide low-level ramps to help them navigate the cage, offer warmed flax bags for comfort, switch to softer proteins, and add extra nap spots for their deep sleep.</p>
+                    </div>
+                     <div class="card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Emergency Kit</h3>
+                        <p class="text-gray-600">Keep a small emergency kit handy with styptic powder for nail trims, gauze, a plastic syringe for administering medicine, and raw pumpkin purée for blockages. This can save you a trip to the vet in a non-critical situation.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="habitat-content" class="content-section hidden">
+            <section>
+                <h2 class="text-3xl font-bold section-title mb-8 text-center">🏡 Habitat & Care</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto text-center mb-12">
+                   A clean and stimulating environment is crucial for a ferret's physical and mental health. Create a safe space that caters to their instincts.
                 </p>
                 <div class="grid md:grid-cols-2 gap-8">
-                    <div class="card p-6 rounded-lg">
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Cleaning Schedule & DIY Solutions</h3>
+                     <div class="card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Ferret-Proofing Your Home</h3>
+                        <p class="text-gray-600 mb-4">Ferrets are masters of mischief. Supervise them outside their cage and ensure every room is safe. Common household hazards include:
                         <ul class="space-y-3 text-gray-700">
-                            <li><strong>Daily:</strong> Scoop litter box(es) 1-2 times. Spot clean any accidents.</li>
-                            <li><strong>Weekly:</strong> Wash all bedding (hammocks, sleep sacks) and soft toys. Do a full litter box change and scrub.</li>
-                            <li><strong>Monthly:</strong> Deep clean the entire cage and play areas.</li>
+                            <li><strong>Gap Size:</strong> Block any gaps larger than 1 inch. Ferrets can squeeze into incredibly small spaces.</li>
+                            <li><strong>Wires:</strong> Cover or guard all electrical wires. Ferrets love to chew, and this is a serious hazard.</li>
+                             <li><strong>Furniture:</strong> Block off the underside of recliners, sofas, and other heavy furniture to prevent them from being crushed.</li>
+                             <li><strong>Locks:</strong> Use cabinet locks and doorstops to prevent them from getting into dangerous areas.</li>
                         </ul>
-                        <div class="recipe-toggle mt-4 bg-gray-50 p-3 rounded-lg flex justify-between items-center">
-                            <h4 class="font-semibold text-gray-700">All-Purpose Cage Cleaner Recipe</h4>
-                            <span class="text-lg transform transition-transform duration-300">▸</span>
-                        </div>
-                        <div class="recipe-content mt-2">
-                            <p class="text-sm text-gray-700">In a spray bottle, mix a 50/50 solution of white vinegar and water. This is excellent for scrubbing cage bars, floors, and litter boxes. It disinfects and neutralizes odors safely. For stubborn messes, a paste of baking soda and water works well as a gentle abrasive.</p>
-                        </div>
                     </div>
                     <div class="card p-6 rounded-lg">
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Enrichment & Playtime</h3>
-                         <p class="text-gray-600 mb-4">Ferrets sleep deeply but play hard. They need at least 4 hours of supervised playtime outside their cage daily. Rotate toys to keep them interested.</p>
-                        <ul class="space-y-3 text-gray-700">
-                            <li><strong>Passive Toys:</strong> Tunnels and tubes are a must-have. Cardboard boxes, crinkle balls, and sturdy plastic toys are great for solo play.</li>
-                            <li><strong>Interactive Play:</strong> Engage them with teaser wands (like for cats) or by hiding treats in a dig box.</li>
-                             <li><strong>DIY Dig Box:</strong> Fill a large storage bin with uncooked rice, dried beans, or biodegradable packing peanuts. Bury some of their favorite toys inside for a fun foraging activity.</li>
-                        </ul>
-                    </div>
-                     <div class="card p-6 rounded-lg">
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Ferrets and Your Home</h3>
-                         <p class="text-gray-600 mb-4">Ferrets are masters of mischief. Always supervise them outside their cage. Common household hazards include:
-                        <ul class="space-y-3 text-gray-700">
-                            <li><span class="font-bold text-red-700">Toxic Chemicals:</span> Any household cleaner, pesticide, or medicine.</li>
-                            <li><span class="font-bold text-red-700">Tiny Objects:</span> Rubber bands, foam, erasers, and other small items that can cause intestinal blockages.</li>
-                             <li><span class="font-bold text-red-700">Recliners and Sofas:</span> They can easily be crushed or trapped in the moving parts of furniture.</li>
-                        </ul>
-                    </div>
-                     <div class="card p-6 rounded-lg">
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Toy Types for Ferrets</h3>
-                        <p class="text-gray-600 mb-4">When buying toys, look for durable, ferret-safe materials that can't be chewed up and swallowed.</p>
-                        <ul class="list-disc list-inside space-y-2 text-gray-700">
-                            <li><strong>Tubes and Tunnels:</strong> These cater to their natural burrowing instinct. Choose durable plastic or fabric tunnels.</li>
-                            <li><strong>Interactive Toys:</strong> Feather wands and puzzle toys for cats can be a hit, promoting mental stimulation.</li>
-                            <li><strong>Digging Toys:</strong> A dig box filled with uncooked rice or shredded paper satisfies their urge to dig.</li>
-                            <li><strong>Hard Plastic Toys:</strong> Sturdy plastic balls, keys, and rings are great for batting around, but avoid soft plastic or rubber that can be ingested.</li>
-                            <li><strong>Plush Toys:</strong> Small, durable stuffed animals can be safe if they are not prone to being torn apart.</li>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Cage & Habitat Build</h3>
+                        <p class="text-gray-600 mb-4">A multi-level cage with a solid floor is a good start. Avoid wire floors, which can cause foot injuries. Use safe, non-toxic wood finishes and ensure bar spacing is small enough to prevent escapes.
+                        <ul class="space-y-2 text-gray-700">
+                            <li><strong>Bedding Choices:</strong> Use organic cotton, hemp, or fleece off-cuts. These are safe and durable. Wash all bedding weekly in hot water to keep it clean.</li>
+                             <li><strong>Litter Box Set-up:</strong> Use a litter box in a corner. Fill it with recycled paper or wood-stove pellets. Never use clay or scented litters, which can cause respiratory issues.</li>
+                             <li><strong>Cleaning without Toxins:</strong> A 50/50 mixture of white vinegar and water is an excellent all-purpose cage cleaner. For stubborn messes, use a baking-soda scrub. Steam mops are also great for deep cleaning.</li>
+                             <li><strong>Odour Control Naturally:</strong> A raw diet is the best way to reduce overall odor. In the home, activated charcoal pouches, an open window for cross-breeze, and weekly bedding washes are effective, natural solutions.</li>
                         </ul>
                     </div>
                 </div>
             </section>
         </div>
-        
+
+        <div id="training-content" class="content-section hidden">
+            <section>
+                <h2 class="text-3xl font-bold section-title mb-8 text-center">🤝 Training & Behavior</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto text-center mb-12">
+                    A ferret's bond with its human is built on trust, consistency, and plenty of positive interaction. By understanding their behavior and using gentle training techniques, you can forge a deep and lasting friendship.
+                </p>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Social Grouping</h3>
+                        <p class="text-gray-600 mb-4">
+                            Ferrets are social animals and often thrive in a pair or a small business. Introduce them slowly with a scent-swapping protocol, allowing them to get used to each other before direct contact.
+                        </p>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Reading Body Language</h3>
+                        <p class="text-gray-600">
+                            Understanding their communication is vital. A **war-dance** is a sign of playfulness. A **hiss** or **squeak** can indicate fear or frustration. A **poof-tail** means they are startled or excited. A **sideways hop** is a playful invitation.
+                        </p>
+                    </div>
+                    <div class="card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Gentle Bite Education</h3>
+                        <p class="text-gray-600">Kits (baby ferrets) often nip as a way to play and explore. To correct this, use a firm "no" and a gentle scruff, or give them a **time-out** in a neutral pen for a few minutes. Never hit or yell at a ferret, as it will only break their trust.</p>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Harness & Lead Training</h3>
+                        <p class="text-gray-600">Ferrets can be walked on a leash! Use a cotton or hemp figure-8 harness and ensure it's a snug fit. Slowly desensitize them by letting them wear it in the house first, rewarding them with treats. Start with short walks in a safe, quiet area.  </p>
+                    </div>
+                     <div class="card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Introducing to Other Species</h3>
+                        <p class="text-gray-600">Introducing ferrets to cats, gentle dogs, or rabbits requires extreme caution and supervision. Look for red flags in body language like hissing, growling, or tense body posture. Never leave them unsupervised.  </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="holistic-content" class="content-section hidden">
+            <section>
+                <h2 class="text-3xl font-bold section-title mb-8 text-center">🧘 Mindful Living</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto text-center mb-12">
+                   Beyond the basics, a holistic approach includes creating a mindful and supportive environment for your ferret's mental and emotional well-being.
+                </p>
+                <div class="grid md:grid-cols-2 gap-8">
+                     <div class="card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Natural Rhythms & Calm</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li><strong>Sunlight Rhythm:</strong> Ensure your ferret gets indirect daylight. This helps regulate their natural sleep cycles. Avoid blue LEDs at night and cover their cage for 12 hours of total darkness.</li>
+                            <li><strong>Stress-Reduction Soundscape:</strong> Play soft classical or nature tracks to create a calming atmosphere. Avoid sudden loud bass or jarring noises.</li>
+                            <li><strong>Herbal Calmers:</strong> Use a valerian-root stuffed toy or a chamomile room spray on their bedding to help reduce anxiety.</li>
+                        </ul>
+                    </div>
+                    <div class="card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Community & Activism</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                             <li><strong>Ethical Sourcing:</strong> Visit local small farms to understand how your food animals are raised. Practice a gratitude ritual for the animals that provide sustenance.</li>
+                            <li><strong>Rescue & Foster:</strong> Volunteer to transport rescues, provide temporary housing, or assist with a local TNR (Trap-Neuter-Release) for feral ferret colonies.</li>
+                             <li><strong>Activism Cheat-Sheet:</strong> Learn how to advocate for ferrets by writing to city hall, joining petition sites, or attending peaceful rallies.</li>
+                        </ul>
+                    </div>
+                     <div class="card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Mindful Photography & Fun</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                             <li><strong>Photography:</strong> Use natural light and avoid flash, which can be stressful. Never force poses. Let them explore and document their natural behavior. Take a break every five minutes to give them a rest.</li>
+                             <li><strong>Kids & Ferret Etiquette:</strong> Teach children to always use two hands when holding a ferret and to handle them only on the floor. Never allow them to dress up the ferret or force interactions.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="shopping-content" class="content-section hidden">
+            <section class="mb-20">
+                <h2 class="text-3xl font-bold section-title mb-8 text-center">🛒 The Holistic Ferret Shopping List</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto text-center mb-12">
+                    A curated list of essential items for your ferret's natural lifestyle. Focus on quality over quantity and avoid products with harmful chemicals.
+                </p>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Food & Supplements</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>Fresh, human-grade meats (chicken, turkey, beef)</li>
+                            <li>Edible raw bones (chicken wings, necks)</li>
+                            <li>Organ meats (liver, heart, kidney)</li>
+                            <li>Freeze-dried meat treats</li>
+                            <li>Salmon oil or other omega-3 supplements</li>
+                        </ul>
+                    </div>
+                    <div class="card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Habitat & Home</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>Multi-level cage with a solid bottom</li>
+                            <li>Litter box and ferret-safe litter (pelleted paper or wood)</li>
+                            <li>Bedding (organic cotton, hemp, or fleece)</li>
+                            <li>Ceramic or stainless steel food and water dishes</li>
+                            <li>White vinegar and baking soda for cleaning</li>
+                            <li>Activated charcoal pouches for odor control</li>
+                        </ul>
+                    </div>
+                    <div class="card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Grooming & Health</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>Blunt-tipped nail clippers</li>
+                            <li>Cotton swabs</li>
+                            <li>Organic oatmeal (plain, uncooked)</li>
+                            <li>Boar-bristle brush</li>
+                            <li>Raw pumpkin purée for blockages</li>
+                            <li>Emergency kit with styptic powder, gauze, syringe</li>
+                        </ul>
+                    </div>
+                     <div class="card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Toys & Playtime</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>Untreated drainage pipes or cardboard postal tubes</li>
+                            <li>Hard plastic or cotton rope toys</li>
+                            <li>Dig box (with organic potting soil or dried beans)</li>
+                            <li>Fleece sleep sacks and hammocks</li>
+                            <li>Natural chew items like rabbit ears with fur</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="travel-content" class="content-section hidden">
+            <section>
+                <h2 class="text-3xl font-bold section-title mb-8 text-center">✈️ Travel & Emergencies</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto text-center mb-12">
+                   Be prepared for any situation, whether it's a short trip or an emergency evacuation.
+                </p>
+                <div class="grid md:grid-cols-2 gap-8">
+                     <div class="card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Disaster Go-Bag</h3>
+                        <p class="text-gray-600 mb-4">Prepare a disaster bag with at least three days' worth of freeze-dried raw food, bottled water, a printed copy of your vet's consent for treatment, and a travel carrier. This ensures you can leave on short notice and keep your ferret safe.</p>
+                    </div>
+                    <div class="card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Travel Carrier Set-up</h3>
+                        <p class="text-gray-600 mb-4">Use an airline-approved hard-shell carrier. Line it with a soft fleece liner that smells like home. In warm weather, add a frozen water bottle wrapped in a towel to help keep them cool during travel.</p>
+                     </div>
+                </div>
+            </section>
+        </div>
+
         <div id="facts-content" class="content-section hidden">
             <section class="mb-20">
                 <h2 class="text-3xl font-bold section-title mb-8 text-center">💡 Ferret Facts & Vital Knowledge</h2>
@@ -347,120 +569,6 @@
                         <h3 class="text-xl font-bold text-gray-800 mb-2">Digging & Burrowing Instincts</h3>
                         <p class="text-gray-600">Ferrets have a powerful instinct to dig and burrow. Provide them with safe outlets for this behavior, like a dig box or a pile of blankets, to prevent them from tearing up furniture or carpets.</p>
                     </div>
-                    <div class="card p-6 rounded-lg">
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Understanding Their Bite</h3>
-                        <p class="text-gray-600">Kits (baby ferrets) often nip as a way to play and explore. With consistent and gentle training, this can be corrected. Never hit or scold a ferret; instead, use a consistent method like a scruff and a firm "no."</p>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <div id="bonding-content" class="content-section hidden">
-            <section class="mb-20">
-                <h2 class="text-3xl font-bold section-title mb-8 text-center">🤝 Building a Bond: Trust & Training</h2>
-                <p class="text-lg text-gray-600 max-w-3xl mx-auto text-center mb-12">
-                    A ferret's bond with its human is built on trust, consistency, and plenty of positive interaction. By understanding their behavior and using gentle training techniques, you can forge a deep and lasting friendship.
-                </p>
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="card p-6 rounded-lg">
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">The Importance of Playtime</h3>
-                        <p class="text-gray-600 mb-4">
-                            Ferrets are not content to sit still. Daily, supervised playtime is the most critical element of bonding. When they are out of the cage, get down to their level, engage them with toys, and let them explore. This shows them that you are a part of their world and a source of fun.
-                        </p>
-                        <ul class="list-disc list-inside space-y-2 text-gray-700">
-                            <li><strong>Follow their lead:</strong> Let them sniff and explore you at their own pace.</li>
-                            <li><strong>Use treats:</strong> Offer a small amount of a ferret-safe treat (like salmon oil or freeze-dried meat) to build positive associations.</li>
-                            <li><strong>Respect their boundaries:</strong> If they seem uninterested or want to be left alone, let them be.</li>
-                        </ul>
-                    </div>
-                     <div class="card p-6 rounded-lg">
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Training with Positive Reinforcement</h3>
-                        <p class="text-gray-600 mb-4">
-                            Ferrets are highly intelligent and can be trained to respond to their name, come when called, and even learn simple tricks.
-                        </p>
-                        <ul class="list-disc list-inside space-y-2 text-gray-700">
-                            <li><strong>Litter Training:</strong> Ferrets naturally choose a corner to do their business. Place a litter box there and reward them when they use it correctly. If they go outside the box, gently place them inside the box to reinforce the behavior.</li>
-                            <li><strong>Bite Inhibition:</strong> Never punish your ferret. Instead, use a "time out" method. When they bite too hard, give a firm "no" and place them in a small carrier or a non-fun area for 3-5 minutes. This teaches them that biting ends the fun.</li>
-                            <li><strong>Target Training:</strong> Use a simple clicker or sound and a target stick. When they touch the stick with their nose, give a treat. This can be expanded to teach them to come to you or go into their cage.</li>
-                        </ul>
-                    </div>
-                    <div class="card p-6 rounded-lg">
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Creating a Safe Space</h3>
-                        <p class="text-gray-600 mb-4">
-                            A ferret that feels secure is more likely to trust and bond with you. Their cage and play areas should be a refuge for them.
-                        </p>
-                        <ul class="list-disc list-inside space-y-2 text-gray-700">
-                            <li><strong>Provide safe bedding:</strong> Old t-shirts, blankets, and towels that smell like you can make their cage feel more comforting.</li>
-                            <li><strong>Hiding spots:</strong> Ferrets love to burrow and hide. Provide plenty of sleep sacks, tunnels, and hideaways where they can feel safe.</li>
-                            <li><strong>Respect sleep:</strong> Never wake a ferret suddenly. Allow them to wake up on their own terms.</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <div id="shopping-content" class="content-section hidden">
-            <section class="mb-20">
-                <h2 class="text-3xl font-bold section-title mb-8 text-center">🛒 The Holistic Ferret Shopping List</h2>
-                <p class="text-lg text-gray-600 max-w-3xl mx-auto text-center mb-12">
-                    A curated list of essential items for your ferret's natural lifestyle. Focus on quality over quantity and avoid products with harmful chemicals.
-                </p>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="card p-6 rounded-lg">
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Food & Supplements</h3>
-                        <ul class="list-disc list-inside space-y-2 text-gray-700">
-                            <li>Fresh, human-grade meats (chicken, turkey, beef)</li>
-                            <li>Edible raw bones (chicken wings, necks)</li>
-                            <li>Organ meats (liver, heart, kidney)</li>
-                            <li>Salmon oil or other omega-3 supplements</li>
-                            <li>Ferret-safe treat (raw meat strips)</li>
-                        </ul>
-                    </div>
-                    <div class="card p-6 rounded-lg">
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Habitat & Home</h3>
-                        <ul class="list-disc list-inside space-y-2 text-gray-700">
-                            <li>Multi-level cage with a solid bottom (no wire floors)</li>
-                            <li>Litter box and ferret-safe litter (pelleted paper or wood)</li>
-                            <li>Bedding (old t-shirts, blankets, towels)</li>
-                            <li>Food and water dishes (ceramic or stainless steel)</li>
-                            <li>Water bottle with a guard or a bowl for hydration</li>
-                        </ul>
-                    </div>
-                    <div class="card p-6 rounded-lg">
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Grooming & Health</h3>
-                        <ul class="list-disc list-inside space-y-2 text-gray-700">
-                            <li>Blunt-tipped nail clippers</li>
-                            <li>Cotton swabs</li>
-                            <li>Oatmeal (plain, uncooked) for baths</li>
-                            <li>Organic apple cider vinegar</li>
-                            <li>Ferret-safe flea preventative (consult your vet)</li>
-                        </ul>
-                    </div>
-                     <div class="card p-6 rounded-lg">
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Toys & Playtime</h3>
-                        <ul class="list-disc list-inside space-y-2 text-gray-700">
-                            <li>Hard plastic toys (avoid soft rubber)</li>
-                            <li>PVC pipes or dryer vent tubing for tunnels</li>
-                            <li>Dig box (with clean soil or uncooked rice)</li>
-                            <li>Teaser wands (cat toys with feathers)</li>
-                            <li>Old socks and blankets for burrowing</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <div id="health-content" class="content-section hidden">
-            <section>
-                <h2 class="text-3xl font-bold section-title mb-8 text-center">❤️ A Note on Health & Vets</h2>
-                <p class="text-lg text-gray-600 max-w-3xl mx-auto text-center mb-12">
-                    The goal of a natural lifestyle is not to *avoid* the vet, but to build a foundation of robust health that makes vet visits for illness less likely. Preventative care at home is your most powerful tool. However, it is not a replacement for professional medical care when needed.
-                </p>
-                 <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-6 rounded-r-lg card">
-                    <h3 class="text-xl font-bold mb-2">Vets are Vital Partners</h3>
-                    <p>
-                    An annual check-up with an experienced exotics vet is crucial for monitoring health, even for a seemingly healthy ferret. Accidents and sudden illnesses can happen. This guide empowers you to provide the best daily care, but a vet is an irreplaceable partner in your ferret's lifelong health journey. Ferrets are experts at hiding illness, so professional check-ups are key to early detection.
-                    </p>
                 </div>
             </section>
         </div>
@@ -531,44 +639,45 @@
                     new Chart(dietChartCtx, dietConfig);
                 }
             };
-            const navButtons = document.querySelectorAll('.nav-link');
-            const homeButtons = document.querySelectorAll('#home-content button[data-target]');
-            const allButtons = [...navButtons, ...homeButtons];
+
+            const hamburgerMenu = document.getElementById('hamburger-menu');
+            const navOverlay = document.getElementById('nav-overlay');
+            const navLinks = document.querySelectorAll('#nav-overlay a');
             const contentSections = document.querySelectorAll('.content-section');
-            const navSectionsDiv = document.getElementById('nav-sections');
-            const mainTitle = document.getElementById('main-title');
+            const homeLinks = document.querySelectorAll('#home-content button[data-target]');
+            const allLinks = [...navLinks, ...homeLinks];
+
+            hamburgerMenu.addEventListener('click', () => {
+                hamburgerMenu.classList.toggle('active');
+                navOverlay.classList.toggle('active');
+            });
+
             const showContent = (targetId) => {
                 contentSections.forEach(section => {
                     section.classList.add('hidden');
                 });
                 document.getElementById(targetId).classList.remove('hidden');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-                if (targetId === 'home-content') {
-                    navSectionsDiv.classList.add('hidden');
-                    if (mainTitle) mainTitle.classList.remove('hidden');
-                } else {
-                    navSectionsDiv.classList.remove('hidden');
-                    if (mainTitle) mainTitle.classList.add('hidden');
-                }
+
                 if (targetId === 'diet-content') {
                     initDietChart();
                 }
             };
-            const setActiveLink = (targetId) => {
-                navButtons.forEach(btn => {
-                    btn.classList.remove('active');
-                    if (btn.dataset.target === targetId) {
-                        btn.classList.add('active');
+            
+            allLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('data-target');
+                    showContent(targetId);
+                    // Close the menu if a nav link was clicked
+                    if (link.closest('#nav-overlay')) {
+                         hamburgerMenu.classList.remove('active');
+                         navOverlay.classList.remove('active');
                     }
                 });
-            };
-            allButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const targetId = button.dataset.target;
-                    showContent(targetId);
-                    setActiveLink(targetId);
-                });
             });
+
+            // This is the code that was missing to handle the collapsible sections
             const recipeToggles = document.querySelectorAll('.recipe-toggle');
             recipeToggles.forEach(toggle => {
                 toggle.addEventListener('click', () => {
@@ -586,8 +695,9 @@
                     }
                 });
             });
+            
+            // Initial view
             showContent('home-content');
-            setActiveLink('home-content');
         });
     </script>
 </body>
